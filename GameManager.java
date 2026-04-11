@@ -8,12 +8,11 @@ public class GameManager {
     private Leaderboard leaderboard = new Leaderboard();
 
     private int damage = 10;
+     public void startGame(Scanner sc) {
+        
+         System.out.println("Enter name (or type exit): ");
+         String name = sc.nextLine();
 
-    public void startGame(Scanner sc) {
-
-
-     System.out.print("Enter name (or type exit): ");
-     String name = sc.nextLine();
 
     if (name.equalsIgnoreCase("exit")) {
     System.out.println("Goodbye!");
@@ -22,25 +21,26 @@ public class GameManager {
 
         int difficulty = 0;
 
-        while (true) {
-            try {
-                System.out.println("1. Easy");
-                System.out.println("2. Medium");
-                System.out.println("3. Hard");
-                System.out.print("Choice: ");
+       while (true) {
+    System.out.println("1. Easy");
+    System.out.println("2. Medium");
+    System.out.println("3. Hard");
+    System.out.print("Choice: ");
 
-                difficulty = sc.nextInt();
-                sc.nextLine();
+    try {
+        difficulty = Integer.parseInt(sc.nextLine());
 
-                if (difficulty < 1 || difficulty > 3)
-                    throw new InvalidChoiceException("1-3 only");
+        if (difficulty < 1 || difficulty > 3) {
+            System.out.println("Invalid choice! Enter 1–3 only.");
+            continue;
+        }
 
-                break;
+        break; 
 
-            } catch (Exception e) {
-                System.out.println("Invalid input!");
-                sc.next();
-            }
+    } catch (Exception e) {
+        System.out.println("Invalid input! Please enter a number:");
+    }
+
            
         }
 
@@ -60,17 +60,19 @@ public class GameManager {
 
     int correct = q.ask();
 
-    System.out.print("Answer: ");
-
     int ans = 0;
 
+   while (true) {
+    System.out.print("Answer: ");
+
     try {
-        ans = sc.nextInt();
-    } catch (InputMismatchException e) {
-        System.out.println("Numbers only!");
-        sc.next();
-        continue;
+        ans = Integer.parseInt(sc.nextLine());
+        break; 
+
+    } catch (Exception e) {
+        System.out.println("Invalid input! Please enter a number:");
     }
+}
 
     history.push("Correct: " + correct + " Your: " + ans);
 
@@ -83,7 +85,7 @@ public class GameManager {
         System.out.println("Wrong!");
     }
 
-    System.out.println("Player HP: " + player.getHp());
+    System.out.println(name + " HP: " + player.getHp());
     System.out.println("Enemy HP: " + enemy.getHp());
 }
 
@@ -96,23 +98,23 @@ public class GameManager {
         showHistoryRecursive(history);
     }
 
-  private void loadQuestions(int d) {
+
+private void loadQuestions(int d) {
 
     Set<String> used = new HashSet<>();
+    int limit = (d == 3) ? 5 : 10; // 🔥 hard has fewer unique questions
 
-    int count = 0;
-
-    while (count < 10) {
-
+    while (used.size() < limit) {
         MathQuestion mq = new MathQuestion(d);
 
         if (!used.contains(mq.getQuestion())) {
             questions.add(mq);
             used.add(mq.getQuestion());
-            count++;
         }
     }
 }
+
+
 
 
     // RECURSION

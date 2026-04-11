@@ -20,13 +20,22 @@ public class MathQuestion implements Question {
             question = a + "^" + b;
             correctAnswer = power(a, b);
 
-        } else { // Hard (factorial)
-            int n = rand.nextInt(5) + 3;
-            question = n + "! (factorial)";
-            correctAnswer = factorial(n);
-        }
-    }
+        } else { // Hard (factorial + fibonacci)
 
+    int type = rand.nextInt(2); 
+
+    if (type == 0) {
+        int n = rand.nextInt(5) + 3;
+        question = n + "! (factorial)";
+        correctAnswer = factorial(n);
+    } else {
+        int n = rand.nextInt(6) + 3; 
+        question = "Fibonacci of " + n;
+        correctAnswer = fibonacci(n);
+    }
+}
+        }
+    
     @Override
     public int ask() {
         System.out.println(question + " = ?");
@@ -38,6 +47,10 @@ public class MathQuestion implements Question {
         if (n <= 1) return 1;
         return n * factorial(n - 1);
     }
+    private int fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
 
     private int power(int a, int b) {
         if (b == 0) return 1;

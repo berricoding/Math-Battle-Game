@@ -1,71 +1,137 @@
 # Math-Battle-Game
 To enhance users’ mathematical skills through a structured and interactive game-based learning system.
 
-//✅Stack → GameManager (history)
+🔹 1. Queue (FIFO)
 
-👉 Used in:
-history.push(...)
+📍 Used in:
+GameManager
+private Queue<Question> questions = new LinkedList<>();
+🎯 Purpose:
+Stores questions in First-In-First-Out order
+Questions are asked in the order they are generated
+📌 Methods used:
+add() → insert question
+poll() → remove and return next question
+💡 Explanation:
+
+The queue ensures that questions are asked in a structured sequence, where the first generated question is asked first.
+
+🔹 2. Stack (LIFO)
+
+📍 Used in:
+GameManager
+private Stack<String> history = new Stack<>();
+🎯 Purpose:
+Stores answer history
+Last answer is shown first
+📌 Methods used:
+push() → store history
+pop() → retrieve history
+💡 Explanation:
+
+The stack is used to display the history of answers in reverse order using recursion.
+
+🔹 3. Singly Linked List
+
+📍 Used in:
+Leaderboard + Node
+Node next;
+🎯 Purpose:
+Stores players in sequence for leaderboard
+📌 Methods used:
+traversal using:
+while (temp != null)
+💡 Explanation:
+
+A singly linked list is used to store player scores dynamically, allowing easy insertion and traversal.
+
+🔹 4. Doubly Linked List (concept)
+
+📍 Used in:
+Node class
+Node prev;
+Node next;
+🎯 Purpose:
+Allows forward and backward traversal (even if not fully used)
+💡 Explanation:
+
+The Node class supports a doubly linked list structure with both next and previous pointers.
+
+
+🔹 5. Circular Linked List
+
+📍 Used in:
+EnemyCLL
+head.next = head;
+🎯 Purpose:
+Enemies loop continuously
+Last enemy connects back to first
+📌 Methods used:
+add()
+getNextEnemy()
+💡 Explanation:
+
+A circular linked list is used to cycle through enemies continuously without reaching a null reference.
+
+🔹 6. Set (HashSet)
+
+📍 Used in:
+loadQuestions()
+Set<String> used = new HashSet<>();
+🎯 Purpose:
+Prevent duplicate questions
+📌 Methods used:
+contains()
+add()
+💡 Explanation:
+
+A HashSet is used to ensure that only unique questions are added to the queue.
+
+🔹 7. Recursion
+📍 Used in:
+factorial()
+fibonacci()
+power()
 showHistoryRecursive()
+🎯 Purpose:
+1. Mathematical calculations:
+factorial(n)
+fibonacci(n)
+power(a, b)
+2. Display history:
+showHistoryRecursive()
+💡 Explanation:
 
-📌 Explanation:
-
-Stack is used to store the player’s answer history in LIFO (Last In First Out) order.
-The most recent answer is stored on top and displayed first when popping.
-
-//✅ Queue → GameManager (questions)
-
-👉 Used in:
-questions.add(...) → enqueue
-questions.poll() → dequeue
-
-📌 Explanation:
-
-Queue is used to manage questions in FIFO (First In First Out) order.
-Questions are asked in the same order they are generated.
-
-//✅ SLL (Singly Linked List) → Leaderboard
-
-👉 Used in:
-add(Player p)
-display()
-
-📌 Explanation:
-
-Singly Linked List is used to store players in the leaderboard sequentially.
-Each node points to the next player, allowing traversal from start to end.
-
-//✅ DLL (Doubly Linked List) → Node (prev, next)
-
-📌 Explanation:
-
-Doubly Linked List is implemented in the Node class using both next and prev pointers.
-This allows traversal in both forward and backward directions, even though only forward traversal is used in the leaderboard.
-
-//✅ CLL (Circular Linked List) → Enemy + EnemyCLL
-
-👉 Used in:
-EnemyCLL.add()
-circular linking logic
-
-📌 Explanation:
-
-Circular Linked List is used to connect enemies in a loop.
-The last enemy points back to the first enemy, allowing continuous cycling through enemies without reaching null.
-
-//✅ Recursion → MathQuestion + GameManager
-1. In MathQuestion
-
-2. In GameManager
-showHistoryRecursive(Stack<String> stack)
-
-📌 Explanation:
-
-Recursion is used to solve mathematical operations like factorial and power by calling the method repeatedly.
-It is also used to display the history by repeatedly popping elements from the stack until it is empty.
-
-//Iteration → GameManager + Leaderboard
+Recursion is used to solve problems by calling the same function repeatedly with smaller inputs.
 
 
-📌 Explanation:
 
-Iteration is used through loops to control game flow, generate questions, and traverse data structures like the leaderboard.
+
+
+
+
+FOR OODP 
+🔹 8. Exception Handling
+📍 Used in:
+Difficulty input
+Answer input
+try-catch
+🎯 Purpose:
+Prevent program crash
+Handle invalid input
+💡 Explanation:
+
+Exception handling ensures the program continues running even when invalid input is entered.
+
+🔹 9. OOP Concepts
+📍 Used in:
+Character (abstract class)
+Player, Enemy (inheritance)
+Question (interface)
+💡 Explanation:
+Concept	Where
+Abstraction	Character
+Inheritance	Player, Enemy
+Polymorphism	Question interface
+Encapsulation	private fields + getters
+

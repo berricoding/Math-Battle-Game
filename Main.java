@@ -7,10 +7,25 @@ public class Main {
 
         while (true) {
             GameManager game = new GameManager();
-            game.startGame(sc); 
-        }
+            game.startGame(sc);
 
-        
-       
+
+         while (true) {
+             System.out.print("Play again? (yes/no): ");
+            String choice = sc.nextLine().toLowerCase();
+
+         if (choice.contains("yes")) {
+         break; // play again
+     } 
+          else if (choice.contains("no")) {
+           System.out.println("Goodbye!");
+          return;
+    } 
+    else {
+        System.out.println("Invalid input! Please type yes or no.");
     }
 }
+
+            }
+        }
+    }
