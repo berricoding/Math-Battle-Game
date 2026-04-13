@@ -1,4 +1,10 @@
-public abstract class Character {
+//Player and Enemy inherited character
+//The Player and Enemy classes inherit from the abstract Character class, allowing them to reuse common properties like name and hp.
+//Inheritance allows code reuse and establishes an is-a relationship (Player/ Enemy is a Character)
+
+
+public abstract class Character ////Abstraction hides implementation details and shows only essential features
+{
     protected String name;
     protected int hp;
 

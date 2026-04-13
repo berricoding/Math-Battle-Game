@@ -1,5 +1,4 @@
-public class EnemyCLL {//Circular Linked List
-    //Circular Linked List is used to loop enemies continuously where the last enemy connects back to the first.
+public class EnemyCLL {
     private Enemy head;
 
     public void add(Enemy e) {
@@ -21,4 +20,7 @@ public class EnemyCLL {//Circular Linked List
     public Enemy getNextEnemy(Enemy current) {
         return current.next;
     }
+    public Enemy getHead() {
+    return head;
+}
 }

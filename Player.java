@@ -1,3 +1,4 @@
+//Player inherited Character class
 public class Player extends Character {
     private int score;
 

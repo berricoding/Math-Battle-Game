@@ -1,7 +1,7 @@
+//Eneemy class inherited Character
 public class Enemy extends Character {
-    Enemy next; // Circular Linked List
-
-    public Enemy(int hp) {
-        super("Enemy", hp);
-    }
+    Enemy next; 
+    public Enemy(String name, int hp) {
+    super(name, hp);
+}
 }

@@ -15,7 +15,7 @@ public class Main {
             String choice = sc.nextLine().toLowerCase();
 
          if (choice.contains("yes")) {
-         break; // play again
+         break; 
      } 
           else if (choice.contains("no")) {
            System.out.println("Goodbye!");

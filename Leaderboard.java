@@ -1,4 +1,5 @@
-//Singly Linked List
+
+
 public class Leaderboard {
     private Node head;
 
