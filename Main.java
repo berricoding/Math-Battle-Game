@@ -12,7 +12,7 @@ public class Main {
 
          while (true) {
              System.out.print("Play again? (yes/no): ");
-            String choice = sc.nextLine().toLowerCase();
+            String choice = sc.nextLine().toLowerCase(); // Scanner is used to take user input from the keyboard
 
          if (choice.contains("yes")) {
          break; 

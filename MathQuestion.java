@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class MathQuestion implements Question {
+public class MathQuestion implements Question {// Implemented Question class
 
     private String question;
     private int correctAnswer;

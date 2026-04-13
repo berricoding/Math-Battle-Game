@@ -17,137 +17,133 @@ public class GameManager {
     private static int roundCounter = 0;
 
     public void startGame(Scanner sc) {
-        // Scanner is used to take user input from the keyboard
-        // This allows interaction between the user and the game
-        System.out.println("Enter name (or type exit): ");
-        String name = sc.nextLine();
+    // Scanner is used to take user input from the keyboard
+    // This allows interaction between the user and the game
+    System.out.println("Enter name (or type exit): ");
+    String name = sc.nextLine();
 
-        if (name.equalsIgnoreCase("exit")) {
-            System.out.println("Goodbye!");
-            System.exit(0);
-        }
+    if (name.equalsIgnoreCase("exit")) {
+        System.out.println("Goodbye!");
+        System.exit(0);
+    }
 
-        int difficulty = 0;
+    int difficulty = 0;
 
-        while (true) {
-            System.out.println("1. Easy");
-            System.out.println("2. Medium");
-            System.out.println("3. Hard");
-            System.out.print("Choice: ");
-////The program uses both built-in exceptions and a custom exception to handle invalid user input safely.
-            try {
-                difficulty = Integer.parseInt(sc.nextLine());
+    while (true) {
+        System.out.println("1. Easy");
+        System.out.println("2. Medium");
+        System.out.println("3. Hard");
+        System.out.print("Choice: ");
+     //The program uses both built-in exceptions and a custom exception to handle invalid user input safely.
+        try {
+            difficulty = Integer.parseInt(sc.nextLine());
 
-                if (difficulty < 1 || difficulty > 3) {
-                    // custom exception is thrown for invalid difficulty range
-                    // This improves code readability and separates custom error logic from general exceptions
-                    throw new InvalidChoiceException("Please choose between 1 and 3 only!");
+        if (difficulty < 1 || difficulty > 3) {
+    // custom exception is thrown for invalid difficulty range
+    // This improves code readability and separates custom error logic from general exceptions
+        throw new InvalidChoiceException("Please choose between 1 and 3 only!");
                 }
-
-                break;
-
-            // handles custom exception with specific message
-            //It ensures the program continues running and improves user experience
-            } catch (InvalidChoiceException e) {
+             break;
+            }
+    // handles custom exception with specific message
+    //It ensures the program continues running and improves user experience
+        catch (InvalidChoiceException e) {
                 System.out.println(e.getMessage());
-            //handles built-in exceptions (e.g., non-numeric input)
-            } catch (Exception e) {
+            } 
+        catch (Exception e) { //handles built-in exceptions (e.g., non-numeric input)
                 System.out.println("Invalid input! Please enter a number:");
             }
         }
 
-        Player player = new Player(name, 100);
+    Player player = new Player(name, 100);
 
-        // Create circular linked list of enemies
-        EnemyCLL enemyList = new EnemyCLL();
+    // Create circular linked list of enemies
+    EnemyCLL enemyList = new EnemyCLL();
+    Enemy enemy1 = new Enemy("Enemy 1", 100);
+    Enemy enemy2 = new Enemy("Enemy 2", 100);
+    Enemy enemy3 = new Enemy("Enemy 3", 100);
 
-        Enemy enemy1 = new Enemy("Enemy 1", 100);
-        Enemy enemy2 = new Enemy("Enemy 2", 100);
-        Enemy enemy3 = new Enemy("Enemy 3", 100);
+    enemyList.add(enemy1);
+    enemyList.add(enemy2);
+    enemyList.add(enemy3);
 
-        enemyList.add(enemy1);
-        enemyList.add(enemy2);
-        enemyList.add(enemy3);
+    
+    Enemy enemy = enemyList.getHead();
 
-        // use enemy1 for your game (no change to gameplay)
-        Enemy enemy = enemyList.getHead();
-
-        // rotate enemy based on roundCounter
-        for (int i = 0; i < roundCounter % 3; i++) {
-            enemy = enemyList.getNextEnemy(enemy);
+    // rotate enemy based on roundCounter
+    for (int i = 0; i < roundCounter % 3; i++) {
+         enemy = enemyList.getNextEnemy(enemy);
         }
 
-        // demonstrate circular behavior
-        System.out.println("Current: " + enemy.name);
+     // demonstrate circular behavior
+    System.out.println("Current: " + enemy.name);
 
-        // Demonstrate circular behavior
-        Enemy nextEnemy = enemyList.getNextEnemy(enemy);
-        System.out.println("Next enemy (circular): " + nextEnemy.name);
+    // Demonstrate circular behavior
+    Enemy nextEnemy = enemyList.getNextEnemy(enemy);
+    System.out.println("Next enemy (circular): " + nextEnemy.name);
+    loadQuestions(difficulty);
 
-        loadQuestions(difficulty);
+    while (player.getHp() > 0 && enemy.getHp() > 0) {
 
-        while (player.getHp() > 0 && enemy.getHp() > 0) {
-
-            if (questions.isEmpty()) {
+        if (questions.isEmpty()) {
                 loadQuestions(difficulty);
             }
 
-            Question q = questions.poll();
+    Question q = questions.poll();
 
-            int correct = q.ask();
+    int correct = q.ask();
+    int ans = 0;
 
-            int ans = 0;
+    while (true) {
+        System.out.print("Answer: ");
 
-            while (true) {
-                System.out.print("Answer: ");
+    try {
+        ans = Integer.parseInt(sc.nextLine());
+                 break; 
 
-                try {
-                    ans = Integer.parseInt(sc.nextLine());
-                    break; 
-
-                } catch (Exception e) {
-                    System.out.println("Invalid input! Please enter a number:");
+         } 
+    catch (Exception e) {
+            System.out.println("Invalid input! Please enter a number:");
                 }
             }
 
-            history.push("Correct: " + correct + " Your: " + ans);
+    history.push("Correct: " + correct + " Your: " + ans);
 
-            if (ans == correct) {
-                enemy.takeDamage(damage);
-                player.addScore(10);
-                System.out.println("Correct!");
-            } else {
+    if (ans == correct) {
+        enemy.takeDamage(damage);
+        player.addScore(10);
+        System.out.println("Correct!");
+        } else {
                 player.takeDamage(damage);
                 System.out.println("Wrong!");
             }
 
-            System.out.println(name + " HP: " + player.getHp());
-            System.out.println("Enemy HP: " + enemy.getHp());
+    System.out.println(name + " HP: " + player.getHp());
+    System.out.println("Enemy HP: " + enemy.getHp());
         }
 
-        System.out.println(player.getHp() > 0 ? "YOU WIN!" : "ENEMY WINS!");
+    System.out.println(player.getHp() > 0 ? "YOU WIN!" : "ENEMY WINS!");
 
-        leaderboard.add(player);
-        leaderboard.display();
+    leaderboard.add(player);
+    leaderboard.display();
 
-        System.out.println("\nHistory:");
-        showHistoryRecursive(history);
+    System.out.println("\nHistory:");
+    showHistoryRecursive(history);
 
-        // 🔥 ONLY ADDITION (update round)
-        roundCounter++;
+    roundCounter++;
     }
 
     private void loadQuestions(int d) {
 
-        Set<String> used = new HashSet<>();
-        int limit = (d == 3) ? 5 : 10; 
+    Set<String> used = new HashSet<>();
+    int limit = (d == 3) ? 5 : 10; 
 
-        while (used.size() < limit) {
-            MathQuestion mq = new MathQuestion(d);
+    while (used.size() < limit) {
+         MathQuestion mq = new MathQuestion(d);
 
-            if (!used.contains(mq.getQuestion())) {
-                questions.add(mq);
-                used.add(mq.getQuestion());
+        if (!used.contains(mq.getQuestion())) {
+            questions.add(mq);
+            used.add(mq.getQuestion());
             }
         }
     }
@@ -156,7 +152,7 @@ public class GameManager {
          Stack<String> temp = new Stack<>();
     temp.addAll(stack);
      showHelper(temp);
-}
+    }
 
     private void showHelper(Stack<String> stack) {
         if (stack.isEmpty()) return;
