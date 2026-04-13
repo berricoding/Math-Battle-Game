@@ -153,11 +153,16 @@ public class GameManager {
     }
 
     private void showHistoryRecursive(Stack<String> stack) {
+         Stack<String> temp = new Stack<>();
+    temp.addAll(stack);
+     showHelper(temp);
+}
+
+    private void showHelper(Stack<String> stack) {
         if (stack.isEmpty()) return;
 
-        String top = stack.pop();
-        System.out.println(top);
-
-        showHistoryRecursive(stack);
-    }
+    String top = stack.pop();
+    showHelper(stack);
+    System.out.println(top);
+}
 }
