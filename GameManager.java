@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.*;
 public class GameManager {
     // Queue is used to manage questions in FIFO order (First-In-First-Out)
     // Generics ensure type safety by only allowing Question objects
@@ -21,6 +21,7 @@ public class GameManager {
     // This allows interaction between the user and the game
     System.out.println("Enter name (or type exit): ");
     String name = sc.nextLine();
+    saveHistoryToFile();
 
     if (name.equalsIgnoreCase("exit")) {
         System.out.println("Goodbye!");
@@ -147,6 +148,16 @@ public class GameManager {
             }
         }
     }
+    private void saveHistoryToFile() {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("history.txt", true))) {
+        for (String record : history) {
+            writer.write(record);
+            writer.newLine();
+        }
+    } catch (IOException e) {
+        System.out.println("Error writing to file.");
+    }
+}
 
     private void showHistoryRecursive(Stack<String> stack) {
          Stack<String> temp = new Stack<>();
